@@ -28,12 +28,12 @@ Request format:
 ```json
 {
   "messages": {
-    "role": "user" | "assistant" | "system"
-    "content": string
-    "id"?: string
-  }[]
+    "role": "user" | "assistant" | "system",
+    "content": "string",
+    "id?": "string"
+  }[],
   // Add any other parameters your FastAPI expects
-  "max_tokens"?: number
-  "temperature"?: number
+  "max_tokens?": "number",
+  "temperature?": "number",
 }
 ```
