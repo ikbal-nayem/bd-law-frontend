@@ -2,7 +2,7 @@
 
 import { useChat } from "@ai-sdk/react";
 import { useState, useRef, useEffect } from "react";
-import { Send, BookOpen, ArrowLeft } from "lucide-react";
+import { Send, ArrowLeft, MoveRight, Scale } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -24,8 +24,8 @@ export default function ChatPage() {
       <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-sm border-b border-green-100">
         <div className="container mx-auto px-4 py-3 flex items-center">
           <div className="flex items-center gap-2">
-            <BookOpen className="h-6 w-6 text-green-600" />
-            <h1 className="text-xl font-semibold text-gray-800">Bangladesh Constitution Assistant</h1>
+            <Scale className="h-6 w-6 text-green-600" />
+            <h1 className="text-xl font-semibold text-gray-800">Bangladesh Constitution AI</h1>
           </div>
         </div>
       </header>
@@ -45,7 +45,7 @@ export default function ChatPage() {
                 <CardContent className="pt-6">
                   <div className="flex justify-center mb-6">
                     <div className="w-24 h-24 rounded-full bg-gradient-to-r from-green-600 to-green-500 flex items-center justify-center">
-                      <BookOpen className="h-12 w-12 text-white" />
+                      <Scale className="h-12 w-12 text-white" />
                     </div>
                   </div>
 
@@ -57,7 +57,7 @@ export default function ChatPage() {
 
                   <div className="grid gap-3 mt-6">
                     <Button onClick={() => setShowIntro(false)} className="bg-green-600 hover:bg-green-700 text-white">
-                      Start Chatting
+                      Start Chatting <MoveRight className="h-12 w-12 text-white" />
                     </Button>
                   </div>
                 </CardContent>
@@ -79,7 +79,7 @@ export default function ChatPage() {
                 <CardContent className="p-4 h-[60vh] overflow-y-auto">
                   {messages.length === 0 ? (
                     <div className="h-full flex flex-col items-center justify-center text-center p-4">
-                      <BookOpen className="h-12 w-12 text-green-200 mb-4" />
+                      <Scale className="h-20 w-20 text-green-200 mb-4" />
                       <h3 className="text-xl font-medium text-gray-700 mb-2">Ask about Bangladesh Constitution</h3>
                       <p className="text-gray-500 max-w-md">
                         Ask questions about rights, amendments, articles, or any aspect of the Bangladesh Constitution.
