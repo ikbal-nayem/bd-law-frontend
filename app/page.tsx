@@ -7,10 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
+import { MessageLoader } from "@/components/message-loader";
 
 export default function ChatPage() {
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat();
-  const [showIntro, setShowIntro] = useState(true);
+  const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
+    api: "/api/chat", // This will proxy to your FastAPI backend
+  });
+  const [showIntro, setShowIntro] = useState(messages.length === 0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Scroll to bottom when messages change
@@ -106,27 +109,15 @@ export default function ChatPage() {
                           </div>
                         </motion.div>
                       ))}
-                      {isLoading && (
+                      {isLoading && <MessageLoader />}
+                      {error && (
                         <motion.div
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          className="flex justify-start"
+                          className="flex justify-center"
                         >
-                          <div className="bg-gray-100 text-gray-800 rounded-lg rounded-tl-none max-w-[80%] p-3">
-                            <div className="flex space-x-2">
-                              <div
-                                className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"
-                                style={{ animationDelay: "0ms" }}
-                              ></div>
-                              <div
-                                className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"
-                                style={{ animationDelay: "150ms" }}
-                              ></div>
-                              <div
-                                className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"
-                                style={{ animationDelay: "300ms" }}
-                              ></div>
-                            </div>
+                          <div className="bg-red-100 text-red-800 rounded-lg p-3 max-w-[80%]">
+                            Error: {error.message || "Something went wrong. Please try again."}
                           </div>
                         </motion.div>
                       )}

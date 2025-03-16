@@ -20,3 +20,16 @@ A live version of this project is available at: https://bd-constitution-law-ai.n
 - **Tailwind CSS**: A utility-first CSS framework for rapidly building custom designs.
 
 - **Shadcn/ui**: A collection of pre-built UI components for React.
+
+
+API request will be sent to the FastAPI backend, which will process the request and return a response. The response will then be displayed in the chat interface.
+
+Request format:
+```json
+{
+  "messages": [
+    {"role": "user", "content": "User message"},
+    {"role": "assistant", "content": "Assistant response"}
+  ]
+}
+```
