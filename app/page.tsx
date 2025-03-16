@@ -49,7 +49,7 @@ export default function ChatPage() {
                     </div>
                   </div>
 
-                  <h2 className="text-2xl font-bold text-center mb-4">Welcome to Bangladesh Constitution Assistant</h2>
+                  <h2 className="text-2xl font-bold text-center mb-4">Welcome to Bangladesh Constitution AI</h2>
 
                   <p className="text-gray-600 mb-4 text-center">
                     Ask any question about the Constitution of Bangladesh and get accurate, helpful answers instantly.
