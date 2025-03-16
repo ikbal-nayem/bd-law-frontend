@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary-color: #0056b3; /* Dark primary color */
 }
 
 @theme inline {
@@ -16,11 +17,139 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --primary-color: #003d7a; /* Even darker primary color for dark mode */
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f0f0f0; /* Light gray background */
+  color: #333; /* Dark gray text for better visibility */
+  font-family: sans-serif; /* Default sans-serif font */
+  min-height: 100vh; /* Full height */
+  width: 100%; /* Full width */
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  align-items: center; /* Center content horizontally */
+  margin: 0; /* Remove default margin */
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  fill: var(--primary-color);
+}
+
+.input-container {
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+.input-container input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--primary-color);
+  border-radius: 4px 0 0 4px;
+  font-size: 16px;
+  outline: none;
+}
+
+.input-container button {
+  padding: 10px;
+  border: 1px solid var(--primary-color);
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+}
+
+.input-container button:hover {
+  background-color: #003d7a; /* Darker primary color on hover */
+}
+
+header {
+  width: 100%;
+  background-color: var(--primary-color); /* Blue header background */
+  color: #ffffff; /* White text */
+  padding: 1rem; /* Padding for header */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+main {
+  width: 100%;
+  padding: 1rem; /* Padding for main content */
+  flex: 1; /* Take remaining space */
+}
+
+.container {
+  max-width: 1200px; /* Maximum width for content */
+  width: 100%; /* Full width */
+  margin: 0 auto; /* Center container */
+}
+
+.chat-container {
+  width: 100%;
+  max-width: 800px; /* Maximum width for chat */
+  margin: 0 auto; /* Center chat */
+  background-color: #ffffff; /* White background for chat */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 1rem; /* Padding for chat */
+}
+
+.message {
+  margin-bottom: 1rem; /* Space between messages */
+}
+
+.message.user {
+  text-align: right; /* Align user messages to the right */
+}
+
+.message.bot {
+  text-align: left; /* Align bot messages to the left */
+}
+
+.message.user .message-content {
+  background-color: var(--primary-color); /* Blue background for user messages */
+  color: #ffffff; /* White text */
+  border-radius: 8px 8px 0 8px; /* Rounded corners */
+  padding: 0.5rem 1rem; /* Padding for message content */
+}
+
+.message.bot .message-content {
+  background-color: #f0f0f0; /* Light gray background for bot messages */
+  color: #333; /* Dark gray text */
+  border-radius: 8px 8px 8px 0; /* Rounded corners */
+  padding: 0.5rem 1rem; /* Padding for message content */
+}
+
+.input-container {
+  display: flex; /* Flexbox layout */
+  width: 100%;
+  margin-top: 1rem; /* Space above input */
+}
+
+.input-container input {
+  flex: 1; /* Take remaining space */
+  padding: 0.5rem; /* Padding for input */
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 4px; /* Rounded corners */
+  margin-right: 0.5rem; /* Space between input and button */
+}
+
+.input-container button {
+  padding: 0.5rem 1rem; /* Padding for button */
+  background-color: var(--primary-color); /* Blue background */
+  color: #ffffff; /* White text */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.input-container button:hover {
+  background-color: var(--primary-color); /* Darker blue on hover */
 }
