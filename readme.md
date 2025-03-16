@@ -27,9 +27,13 @@ API request will be sent to the FastAPI backend, which will process the request 
 Request format:
 ```json
 {
-  "messages": [
-    {"role": "user", "content": "User message"},
-    {"role": "assistant", "content": "Assistant response"}
-  ]
+  "messages": {
+    "role": "user" | "assistant" | "system"
+    "content": string
+    "id"?: string
+  }[]
+  // Add any other parameters your FastAPI expects
+  "max_tokens"?: number
+  "temperature"?: number
 }
 ```
