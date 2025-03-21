@@ -1,7 +1,7 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Send, ArrowLeft, MoveRight, Scale } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,9 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MessageLoader } from "@/components/message-loader";
 
 export default function ChatPage() {
-  const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
-    api: "/api/chat", // This will proxy to your FastAPI backend
-  });
+  const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({ streamProtocol: 'text' });
   const [showIntro, setShowIntro] = useState(messages.length === 0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -20,6 +18,8 @@ export default function ChatPage() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  console.log(messages, error)
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-green-50 to-white">
