@@ -58,8 +58,9 @@ export async function POST(req: Request) {
 
           // Send the message as a stream event
           const encoder = new TextEncoder();
-          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "message", message })}\n\n`));
-          controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+          controller.enqueue(encoder.encode(data.response || data.message || data.content));
+          // controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "message", message })}\n\n`));
+          // controller.enqueue(encoder.encode("data: [DONE]\n\n"));
           controller.close();
         },
       });
