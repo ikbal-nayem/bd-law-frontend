@@ -11,7 +11,7 @@ import { MoveRight, Scale, Send } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import '@/styles/chat.css'
+import '@/styles/chat.css';
 
 export default function ChatPage() {
 	const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
@@ -110,7 +110,7 @@ export default function ChatPage() {
 							</Button> */}
 
 							<Card className='border-green-200 shadow-md'>
-								<CardContent className='p-4 h-[75vh] overflow-y-auto'>
+								<CardContent className='p-4 h-[80vh] overflow-y-auto'>
 									{messages.length === 0 ? (
 										<div className='h-full flex flex-col items-center justify-center text-center p-4'>
 											<Scale className='h-20 w-20 text-green-200 mb-4' />
@@ -139,7 +139,7 @@ export default function ChatPage() {
 																: 'bg-gray-100 text-gray-800 rounded-bl-none'
 														}`}
 													>
-														<Markdown remarkPlugins={[remarkGfm]} >{`${message.content}`}</Markdown>
+														<Markdown remarkPlugins={[remarkGfm]}>{`${message.content}`}</Markdown>
 														{/* {message.content} */}
 													</div>
 												</motion.div>
@@ -184,22 +184,24 @@ export default function ChatPage() {
 			</main>
 
 			{/* Footer */}
-			<footer className='border-t border-green-100 py-2 text-center text-sm text-gray-500'>
-				<div className='container mx-auto px-4'>
-					<p>The AI assistant may mistake because it's still in under training.</p>
-					<p>
-						Developed by{' '}
-						<a
-							href='https://www.linkedin.com/in/ikbal-nayem/'
-							target='_blank'
-							rel='noopener noreferrer'
-							className='text-green-600 hover:underline'
-						>
-							Ikbal Nayem
-						</a>
-					</p>
-				</div>
-			</footer>
+			{showIntro && (
+				<footer className='border-t border-green-100 py-2 text-center text-sm text-gray-500'>
+					<div className='container mx-auto px-4'>
+						<p>The AI assistant may mistake because it's still in under training.</p>
+						<p>
+							Developed by{' '}
+							<a
+								href='https://www.linkedin.com/in/ikbal-nayem/'
+								target='_blank'
+								rel='noopener noreferrer'
+								className='text-green-600 hover:underline'
+							>
+								Ikbal Nayem
+							</a>
+						</p>
+					</div>
+				</footer>
+			)}
 		</div>
 	);
 }
