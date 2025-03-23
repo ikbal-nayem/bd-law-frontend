@@ -1,7 +1,7 @@
 'use client';
 
 import { useChat } from '@ai-sdk/react';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, use } from 'react';
 import { Send, ArrowLeft, MoveRight, Scale } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,7 +11,7 @@ import { MessageLoader } from '@/components/message-loader';
 import Markdown from 'react-markdown'
 
 export default function ChatPage() {
-	const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
+	const { messages, input, handleInputChange, handleSubmit, isLoading, error, append } = useChat({
 		streamProtocol: 'text',
 	});
 	const [showIntro, setShowIntro] = useState(messages.length === 0);
@@ -20,8 +20,18 @@ export default function ChatPage() {
 	// Scroll to bottom when messages change
 	useEffect(() => {
 		messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-		console.log(messages, error);
 	}, [messages]);
+
+	useEffect(() => {
+		if (error) {
+			console.log(error);			
+			append({
+				id: Date.now().toString(),
+				role: 'assistant',
+				content: error.message || 'Something went wrong. Please try again.',
+			});
+		}
+	}, [error]);
 
 
 	return (
@@ -164,7 +174,7 @@ export default function ChatPage() {
 			{/* Footer */}
 			<footer className='border-t border-green-100 py-4 text-center text-sm text-gray-500'>
 				<div className='container mx-auto px-4'>
-					<p>This is an AI assistant may mistake because it's still training.</p>
+					<p>The AI assistant may mistake because it's still in under training.</p>
 					<p>
 						Developed by{' '}
 						<a
