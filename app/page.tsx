@@ -1,17 +1,20 @@
 'use client';
 
-import { useChat } from '@ai-sdk/react';
-import React, { useState, useRef, useEffect, use } from 'react';
-import { Send, ArrowLeft, MoveRight, Scale } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { motion, AnimatePresence } from 'framer-motion';
 import { MessageLoader } from '@/components/message-loader';
-import Markdown from 'react-markdown'
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { useChat } from '@ai-sdk/react';
+import { appendResponseMessages } from 'ai';
+import { AnimatePresence, motion } from 'framer-motion';
+import { MoveRight, Scale, Send } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import '@/styles/chat.css'
 
 export default function ChatPage() {
-	const { messages, input, handleInputChange, handleSubmit, isLoading, error, append } = useChat({
+	const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
 		streamProtocol: 'text',
 	});
 	const [showIntro, setShowIntro] = useState(messages.length === 0);
@@ -24,15 +27,24 @@ export default function ChatPage() {
 
 	useEffect(() => {
 		if (error) {
-			console.log(error);			
-			append({
-				id: Date.now().toString(),
-				role: 'assistant',
-				content: error.message || 'Something went wrong. Please try again.',
+			console.log(error);
+			// setData({
+			// 	id: Date.now().toString(),
+			// 	role: 'assistant',
+			// 	content: error.message || 'Something went wrong. Please try again.',
+			// });
+			appendResponseMessages({
+				messages: messages,
+				responseMessages: [
+					{
+						id: Date.now().toString(),
+						role: 'assistant',
+						content: error.message || 'Something went wrong. Please try again.',
+					},
+				],
 			});
 		}
 	}, [error]);
-
 
 	return (
 		<div className='flex flex-col min-h-screen bg-gradient-to-b from-green-50 to-white'>
@@ -47,7 +59,7 @@ export default function ChatPage() {
 			</header>
 
 			{/* Main content */}
-			<main className='flex-1 container mx-auto px-4 py-4 md:py-6'>
+			<main className='flex-1 container mx-auto px-4 py-3'>
 				<AnimatePresence>
 					{showIntro ? (
 						<motion.div
@@ -98,7 +110,7 @@ export default function ChatPage() {
 							</Button> */}
 
 							<Card className='border-green-200 shadow-md'>
-								<CardContent className='p-4 h-[70vh] overflow-y-auto'>
+								<CardContent className='p-4 h-[75vh] overflow-y-auto'>
 									{messages.length === 0 ? (
 										<div className='h-full flex flex-col items-center justify-center text-center p-4'>
 											<Scale className='h-20 w-20 text-green-200 mb-4' />
@@ -121,13 +133,13 @@ export default function ChatPage() {
 													className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
 												>
 													<div
-														className={`max-w-[80%] rounded-2xl p-3 ${
+														className={`message max-w-[80%] rounded-2xl p-3 ${
 															message.role === 'user'
 																? 'bg-green-600 text-white rounded-br-none'
 																: 'bg-gray-100 text-gray-800 rounded-bl-none'
 														}`}
 													>
-														<Markdown>{message.content}</Markdown>
+														<Markdown remarkPlugins={[remarkGfm]} >{`${message.content}`}</Markdown>
 														{/* {message.content} */}
 													</div>
 												</motion.div>
@@ -172,7 +184,7 @@ export default function ChatPage() {
 			</main>
 
 			{/* Footer */}
-			<footer className='border-t border-green-100 py-4 text-center text-sm text-gray-500'>
+			<footer className='border-t border-green-100 py-2 text-center text-sm text-gray-500'>
 				<div className='container mx-auto px-4'>
 					<p>The AI assistant may mistake because it's still in under training.</p>
 					<p>
