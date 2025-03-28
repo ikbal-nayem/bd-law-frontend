@@ -1,63 +1,42 @@
 import { getSupabaseClient } from "./supabase-client"
-import { getBrowserInfo } from "./browser-utils"
 
-export interface UserSessionInfo {
+interface ChatSession extends Record<string, unknown> {
   ip_address: string
-  country: string
-  city: string
-  region: string
-  browser: string
-  browser_version: string
-  os: string
-  device: string
+  location: string | null
+  started_at: string
+  user_agent: string
 }
 
-export const saveUserSession = async (): Promise<string | null> => {
+export const trackChatSession = async () => {
+  const supabase = getSupabaseClient()
+  
   try {
-    // Get browser information
-    const { browser, browserVersion, os, device } = getBrowserInfo()
-
-    // Get IP and location information from our API
-    const response = await fetch("/api/user-info")
-    const { ip, country, city, region } = await response.json()
-
-    // Save to Supabase
-    const supabase = getSupabaseClient()
-    const { data, error } = await supabase
-      .from("chat_sessions")
-      .insert({
-        ip_address: ip,
-        country,
-        city,
-        region,
-        browser,
-        browser_version: browserVersion,
-        os,
-        device,
-      })
-      .select("id")
-      .single()
-
-    if (error) {
-      console.error("Error saving user session:", error)
-      return null
+    // Get IP and location
+    const ipResponse = await fetch('https://api.ipify.org?format=json')
+    const { ip } = await ipResponse.json()
+    
+    let location = null
+    try {
+      const locationResponse = await fetch(`https://ipapi.co/${ip}/json/`)
+      const locationData = await locationResponse.json()
+      location = `${locationData.city}, ${locationData.region}, ${locationData.country_name}`
+    } catch (e) {
+      console.error('Failed to get location', e)
     }
 
-    return data.id
+    const sessionData: ChatSession = {
+      ip_address: ip,
+      location,
+      started_at: new Date().toISOString(),
+      user_agent: navigator.userAgent
+    }
+
+    const { error } = await supabase
+      .from('chat_sessions')
+      .insert(sessionData)
+
+    if (error) throw error
   } catch (error) {
-    console.error("Error in saveUserSession:", error)
-    return null
+    console.error('Failed to track chat session', error)
   }
 }
-
-export const updateUserLastActive = async (sessionId: string) => {
-  if (!sessionId) return
-
-  try {
-    const supabase = getSupabaseClient()
-    await supabase.from("chat_sessions").update({ last_active_at: new Date().toISOString() }).eq("id", sessionId)
-  } catch (error) {
-    console.error("Error updating user last active:", error)
-  }
-}
-

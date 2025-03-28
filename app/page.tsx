@@ -11,6 +11,7 @@ import { MoveRight, Scale, Send } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { trackChatSession } from '@/lib/user-tracking-service';
 import '@/styles/chat.css';
 
 export default function ChatPage() {
@@ -28,11 +29,6 @@ export default function ChatPage() {
 	useEffect(() => {
 		if (error) {
 			console.log(error);
-			// setData({
-			// 	id: Date.now().toString(),
-			// 	role: 'assistant',
-			// 	content: error.message || 'Something went wrong. Please try again.',
-			// });
 			appendResponseMessages({
 				messages: messages,
 				responseMessages: [
@@ -88,7 +84,10 @@ export default function ChatPage() {
 
 									<div className='grid gap-3 mt-6'>
 										<Button
-											onClick={() => setShowIntro(false)}
+											onClick={() => {
+												setShowIntro(false);
+												trackChatSession().catch(console.error);
+											}}
 											className='bg-green-600 hover:bg-green-700 text-white'
 										>
 											Start Chatting <MoveRight className='h-12 w-12 text-white' />
