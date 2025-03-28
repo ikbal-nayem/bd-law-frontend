@@ -1,25 +1,66 @@
-"use client";
+"use client"
 
-import { useChat } from "@ai-sdk/react";
-import { useState, useRef, useEffect } from "react";
-import { Send, ArrowLeft, MoveRight, Scale } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { motion, AnimatePresence } from "framer-motion";
-import { MessageLoader } from "@/components/message-loader";
+import type React from "react"
+
+import { useChat } from "@ai-sdk/react"
+import { useState, useRef, useEffect } from "react"
+import { Send, ArrowLeft, MoveRight, Scale } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Card, CardContent, CardFooter } from "@/components/ui/card"
+import { motion, AnimatePresence } from "framer-motion"
+import { MessageLoader } from "@/components/message-loader"
+import { saveUserSession, updateUserLastActive } from "@/lib/user-tracking-service"
 
 export default function ChatPage() {
   const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
     api: "/api/chat", // This will proxy to your FastAPI backend
-  });
-  const [showIntro, setShowIntro] = useState(messages.length === 0);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  })
+  const [showIntro, setShowIntro] = useState(messages.length === 0)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const [sessionId, setSessionId] = useState<string | null>(null)
 
   // Scroll to bottom when messages change
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, [messages])
+
+  // Track user activity
+  useEffect(() => {
+    if (sessionId && messages.length > 0) {
+      updateUserLastActive(sessionId)
+    }
+  }, [messages, sessionId])
+
+  // Handle starting a chat
+  const handleStartChat = async () => {
+    setShowIntro(false)
+
+    // Save user session info when they start chatting
+    if (!sessionId) {
+      const newSessionId = await saveUserSession()
+      if (newSessionId) {
+        setSessionId(newSessionId)
+      }
+    }
+  }
+
+  // Wrap the original submit handler to track activity
+  const wrappedSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    // If this is the first message, save the session
+    if (messages.length === 0 && !sessionId) {
+      const newSessionId = await saveUserSession()
+      if (newSessionId) {
+        setSessionId(newSessionId)
+      }
+    } else if (sessionId) {
+      // Update last active timestamp
+      updateUserLastActive(sessionId)
+    }
+
+    // Call the original submit handler
+    handleSubmit(e)
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-green-50 to-white">
@@ -59,8 +100,8 @@ export default function ChatPage() {
                   </p>
 
                   <div className="grid gap-3 mt-6">
-                    <Button onClick={() => setShowIntro(false)} className="bg-green-600 hover:bg-green-700 text-white">
-                      Start Chatting <MoveRight className="h-12 w-12 text-white" />
+                    <Button onClick={handleStartChat} className="bg-green-600 hover:bg-green-700 text-white">
+                      Start Chatting <MoveRight className="h-4 w-4 ml-2" />
                     </Button>
                   </div>
                 </CardContent>
@@ -126,7 +167,7 @@ export default function ChatPage() {
                   )}
                 </CardContent>
                 <CardFooter className="p-4 border-t border-green-100">
-                  <form onSubmit={handleSubmit} className="flex w-full space-x-2">
+                  <form onSubmit={wrappedSubmit} className="flex w-full space-x-2">
                     <Input
                       value={input}
                       onChange={handleInputChange}
@@ -166,5 +207,6 @@ export default function ChatPage() {
         </div>
       </footer>
     </div>
-  );
+  )
 }
+

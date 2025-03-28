@@ -1,4 +1,6 @@
-import { motion } from "framer-motion";
+"use client"
+
+import { motion } from "framer-motion"
 
 export const MessageLoader = () => {
   return (
@@ -11,5 +13,6 @@ export const MessageLoader = () => {
         </div>
       </div>
     </motion.div>
-  );
-};
+  )
+}
+

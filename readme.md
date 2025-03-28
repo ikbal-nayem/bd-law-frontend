@@ -36,4 +36,4 @@ Request format:
   "max_tokens?": "number",
   "temperature?": "number",
 }
-```
+

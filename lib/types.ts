@@ -18,3 +18,4 @@ export interface ChatResponse {
   content?: string
   // Add any other fields your FastAPI returns
 }
+
