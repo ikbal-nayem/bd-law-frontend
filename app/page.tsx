@@ -64,9 +64,14 @@ export default function ChatPage() {
                       <Scale className="h-12 w-12 text-white" />
                     </div>
                   </div>
-                  <h2 className="text-2xl font-bold text-center mb-4">Welcome to Bangladesh Constitution AI</h2>
+                  <h2 className="text-2xl font-bold text-center mb-4">Welcome to Bangladesh Constitution Chatbot</h2>
                   <p className="text-gray-600 mb-4 text-center">
                     Ask any question about the Constitution of Bangladesh and get accurate, helpful answers instantly.
+                  </p>
+                  <hr />
+                  <p className="text-gray-500 text-xs my-4 text-center">
+                    The AI is trained based on the Bangladesh constitution law official website content at March 2025.
+                    The AI may make mistakes, so please verify important information.
                   </p>
                   <div className="grid gap-3 mt-6">
                     <Button
@@ -158,8 +163,8 @@ export default function ChatPage() {
       {showIntro && (
         <footer className="border-t border-emerald-100 py-2 text-center text-sm text-gray-500">
           <div className="container mx-auto px-4">
-            <p>The AI assistant may mistake because it's still in under training.</p>
-            <p>
+            © {new Date().getFullYear()} Bangladesh Constitution Chatbot
+            <p className="text-xs text-gray-400">
               Developed by{" "}
               <a
                 href="https://www.linkedin.com/in/ikbal-nayem/"
