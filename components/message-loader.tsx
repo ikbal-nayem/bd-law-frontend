@@ -5,21 +5,49 @@ export const MessageLoader = () => {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="message agent" // Apply the new agent message class
-      style={{ padding: "12px 15px" }} // Adjust padding slightly for the loader
+      className="message agent bg-gray-100 dark:bg-gray-800 rounded-lg p-4 max-w-[80%]"
     >
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1], // Scale up and down
-          opacity: [0.7, 1, 0.7], // Fade in and out slightly
-        }}
-        transition={{
-          duration: 1,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="w-3 h-3 rounded-full bg-gray-500" // Slightly larger and different color dot
-      />
+      <div className="flex space-x-2">
+        <motion.div
+          animate={{
+            y: [0, -5, 0],
+            opacity: [0.6, 1, 0.6],
+          }}
+          transition={{
+            duration: 1.2,
+            repeat: Infinity,
+            repeatDelay: 0.2,
+            ease: "easeInOut",
+          }}
+          className="w-2 h-2 rounded-full bg-blue-500"
+        />
+        <motion.div
+          animate={{
+            y: [0, -5, 0],
+            opacity: [0.6, 1, 0.6],
+          }}
+          transition={{
+            duration: 1.2,
+            repeat: Infinity,
+            repeatDelay: 0.4,
+            ease: "easeInOut",
+          }}
+          className="w-2 h-2 rounded-full bg-blue-500"
+        />
+        <motion.div
+          animate={{
+            y: [0, -5, 0],
+            opacity: [0.6, 1, 0.6],
+          }}
+          transition={{
+            duration: 1.2,
+            repeat: Infinity,
+            repeatDelay: 0.6,
+            ease: "easeInOut",
+          }}
+          className="w-2 h-2 rounded-full bg-blue-500"
+        />
+      </div>
     </motion.div>
   );
 };
