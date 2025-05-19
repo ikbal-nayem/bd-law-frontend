@@ -36,7 +36,7 @@ export async function POST(req: Request) {
         body: JSON.stringify(body),
       });
 
-      console.log(response)
+      console.log("[Response]: ",response)
 
       if (!response.ok) {
         throw new Error(`FastAPI responded with status: ${response.status}`);
@@ -44,14 +44,14 @@ export async function POST(req: Request) {
 
       const data = await response.json();
 
-      console.log(data);
+      console.log("[MESSAGE]: ",data);
 
       // Create a simple stream that sends the entire response at once
       const stream = new ReadableStream({
         start(controller) {
           // Send the message as a stream event
           const encoder = new TextEncoder();
-          controller.enqueue(encoder.encode(data.response || data.message || data.content));
+          controller.enqueue(encoder.encode(data?.response || data?.message || data?.content));
           controller.close();
         },
       });
