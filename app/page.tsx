@@ -42,7 +42,7 @@ export default function ChatPage() {
         <div className="container mx-auto px-4 py-3 flex items-center">
           <div className="flex items-center gap-2">
             <Scale className="h-6 w-6 text-emerald-600" />
-            <h1 className="text-xl font-semibold text-emerald-800">Bangladesh Constitution AI</h1>
+            <h1 className="text-xl font-semibold text-emerald-800">Bangladesh Law AI</h1>
           </div>
         </div>
       </header>
@@ -64,13 +64,13 @@ export default function ChatPage() {
                       <Scale className="h-12 w-12 text-white" />
                     </div>
                   </div>
-                  <h2 className="text-2xl font-bold text-center mb-4">Welcome to Bangladesh Constitution Chatbot</h2>
+                  <h2 className="text-2xl font-bold text-center mb-4">Welcome to Bangladesh Law AI Chatbot</h2>
                   <p className="text-gray-600 mb-4 text-center">
-                    Ask any question about the Constitution of Bangladesh and get accurate, helpful answers instantly.
+                    Ask any question about laws of Bangladesh and get accurate, helpful answers instantly.
                   </p>
                   <hr />
                   <p className="text-gray-500 text-xs my-4 text-center">
-                    The AI is trained based on the Bangladesh constitution law official website content at March 2025.
+                    The AI is trained based on the Bangladesh law official website content at March 2025.
                     The AI may make mistakes, so please verify important information.
                   </p>
                   <div className="grid gap-3 mt-6">
@@ -94,9 +94,9 @@ export default function ChatPage() {
                   {messages.length === 0 ? (
                     <div className="h-full flex flex-col items-center justify-center text-center p-4">
                       <Scale className="h-20 w-20 text-emerald-200 mb-4" />
-                      <h3 className="text-xl font-medium text-gray-700 mb-2">Ask about Bangladesh Constitution</h3>
+                      <h3 className="text-xl font-medium text-gray-700 mb-2">Ask about Bangladesh Law</h3>
                       <p className="text-gray-500 max-w-md">
-                        Ask questions about rights, amendments, articles, or any aspect of the Bangladesh Constitution.
+                        Ask questions about rights, amendments, articles, or any aspect of the Bangladesh law.
                       </p>
                     </div>
                   ) : (
@@ -164,14 +164,13 @@ export default function ChatPage() {
       {showIntro && (
         <footer className="border-t border-emerald-100 py-2 text-center text-sm text-gray-500">
           <div className="container mx-auto px-4">
-            © {new Date().getFullYear()} Bangladesh Constitution Chatbot
+            © {new Date().getFullYear()} Bangladesh Law AI
             <p className="text-xs text-gray-400">
               Developed by{" "}
               <a
                 href="https://www.linkedin.com/in/ikbal-nayem/"
                 target="_blank"
                 rel="noopener noreferrer"
-                // Updated text color to match theme
                 className="text-emerald-600 hover:underline"
               >
                 Ikbal Nayem
