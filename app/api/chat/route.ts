@@ -28,6 +28,8 @@ export async function POST(req: Request) {
 			// If your FastAPI endpoint doesn't support streaming, we'll simulate it
 			const response = await Axios.post(FASTAPI_URL, body, {timeout: 30 * 1000 });
 
+      console.log(response?.data)
+
 			if (response.status !== 200) {
 				throw new Error(`FastAPI responded with status: ${response.status}`);
 			}
@@ -37,7 +39,7 @@ export async function POST(req: Request) {
 				start(controller) {
 					const encoder = new TextEncoder();
 					controller.enqueue(
-						encoder.encode(response?.data?.response || response?.data?.message || response?.data?.content)
+						encoder.encode(response?.data?.response || response?.data?.message)
 					);
 					controller.close();
 				},
