@@ -10,18 +10,18 @@ export async function POST(req: Request) {
 
     console.log("[INFO] Calling for chat completion...", FASTAPI_URL);
 
+    const axios = require('axios');
     if (supportsStreaming) {
       // If your FastAPI endpoint supports streaming responses
-      const response = await fetch(FASTAPI_URL, {
-        method: "POST",
+      const response = await axios.post(FASTAPI_URL, body, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(body),
+        responseType: 'stream'
       });
 
       // Return the stream directly
-      return new Response(response.body, {
+      return new Response(response.data, {
         headers: {
           "Content-Type": "text/event-stream",
           "Cache-Control": "no-cache",
@@ -30,23 +30,21 @@ export async function POST(req: Request) {
       });
     } else {
       // If your FastAPI endpoint doesn't support streaming, we'll simulate it
-      const response = await fetch(FASTAPI_URL, {
-        method: "POST",
+      const response = await axios.post(FASTAPI_URL, body, {
         headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
+          "Content-Type": "application/json"
+        }
       });
 
-      console.log("[Response]: ",response)
+      console.log("[Response]: ", response)
 
-      if (!response.ok) {
+      if (response.status !== 200) {
         throw new Error(`FastAPI responded with status: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data = response.data;
 
-      console.log("[MESSAGE]: ",data);
+      console.log("[MESSAGE]: ", data);
 
       // Create a simple stream that sends the entire response at once
       const stream = new ReadableStream({
