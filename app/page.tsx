@@ -26,7 +26,7 @@ export default function ChatPage() {
 	}, [messages]);
 
 	useEffect(() => {
-		window.location.href = 'https://bd-law-ai.vercel.app';
+		if (location.hostname !== 'bd-law-ai.vercel.app') window.location.href = 'https://bd-law-ai.vercel.app';
 	}, []);
 
 	return (
