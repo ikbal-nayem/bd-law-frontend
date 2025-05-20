@@ -142,7 +142,7 @@ export default function ChatPage() {
                       value={input}
                       onChange={handleInputChange}
                       autoFocus
-                      placeholder="Ask about Bangladesh Constitution..."
+                      placeholder="Ask about Bangladesh Law..."
                       className="flex-grow border-emerald-300 rounded-full px-4 py-2 focus-visible:ring-0 focus-visible:ring-offset-0 transition duration-200 shadow-sm bg-white/80"
                     />
                     <Button

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import Axios from 'axios';
 
 const FASTAPI_URL = process.env.FASTAPI_URL || 'http://localhost:8000/chat';
 
@@ -8,12 +9,11 @@ export async function POST(req: Request) {
 
 		const supportsStreaming = process.env.FASTAPI_SUPPORTS_STREAMING === 'true';
 
-		console.log('[INFO] Calling for chat completion...', FASTAPI_URL);
+    console.log("[supportsStreaming]",supportsStreaming)
 
-		const axios = require('axios');
 		if (supportsStreaming) {
 			// If your FastAPI endpoint supports streaming responses
-			const response = await axios.post(FASTAPI_URL, body, {
+			const response = await Axios.post(FASTAPI_URL, body, {
 				headers: { 'Content-Type': 'application/json' },
 				responseType: 'stream',
 			});
@@ -27,8 +27,9 @@ export async function POST(req: Request) {
 				},
 			});
 		} else {
+      console.log("Calling FastAPI without streaming")
 			// If your FastAPI endpoint doesn't support streaming, we'll simulate it
-			const response = await axios.post(FASTAPI_URL, body, {
+			const response = await Axios.post(FASTAPI_URL, body, {
 				headers: { 'Content-Type': 'application/json' },
 			});
 
