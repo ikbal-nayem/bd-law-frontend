@@ -8,6 +8,8 @@ export async function POST(req: Request) {
 
     const supportsStreaming = process.env.FASTAPI_SUPPORTS_STREAMING === "true";
 
+    console.log("[INFO] Calling for chat completion...", FASTAPI_URL);
+
     if (supportsStreaming) {
       // If your FastAPI endpoint supports streaming responses
       const response = await fetch(FASTAPI_URL, {
@@ -65,7 +67,7 @@ export async function POST(req: Request) {
       });
     }
   } catch (error) {
-    console.error("Error communicating with FastAPI:", error);
+    console.log("Error communicating with FastAPI:", error);
     return NextResponse.json({ error: "Failed to communicate with chat API" }, { status: 500 });
   }
 }
