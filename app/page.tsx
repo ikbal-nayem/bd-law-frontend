@@ -25,9 +25,9 @@ export default function ChatPage() {
 		messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
 	}, [messages]);
 
-	useEffect(() => {
-		if (location.hostname !== 'bd-law-ai.vercel.app') window.location.href = 'https://bd-law-ai.vercel.app';
-	}, []);
+	// useEffect(() => {
+	// 	if (location.hostname !== 'bd-law-ai.vercel.app') window.location.href = 'https://bd-law-ai.vercel.app';
+	// }, []);
 
 	return (
 		// Fancier background gradient
@@ -145,7 +145,7 @@ export default function ChatPage() {
 										<Button
 											type='submit'
 											disabled={isLoading || !input.trim()}
-											className='bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white rounded-full p-2.5 transition duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:shadow-none flex-shrink-0'
+											className='bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white rounded-full p-3 transition duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:shadow-none flex-shrink-0'
 										>
 											<Send className='h-5 w-5' />
 										</Button>
