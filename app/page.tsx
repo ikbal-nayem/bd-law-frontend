@@ -1,14 +1,14 @@
 'use client';
 
+import InitInfo from '@/components/init-info';
 import { MessageLoader } from '@/components/message-loader';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { trackChatSession } from '@/lib/user-tracking-service';
 import '@/styles/chat.css';
 import { useChat } from '@ai-sdk/react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { MoveRight, Scale, Send } from 'lucide-react';
+import { Scale, Send } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -20,7 +20,6 @@ export default function ChatPage() {
 	const [showIntro, setShowIntro] = useState(messages.length === 0);
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 
-	// Scroll to bottom when messages change
 	useEffect(() => {
 		messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
 	}, [messages]);
@@ -30,7 +29,6 @@ export default function ChatPage() {
 	// }, []);
 
 	return (
-		// Fancier background gradient
 		<div className='flex flex-col min-h-screen bg-gradient-to-br from-emerald-50 via-white to-teal-50'>
 			{/* Slightly enhanced header */}
 			<header className='sticky top-0 z-10 bg-white/90 backdrop-blur-md border-b border-emerald-100 shadow-sm'>
@@ -45,45 +43,7 @@ export default function ChatPage() {
 			<main className='flex-1 container mx-auto px-4 py-3'>
 				<AnimatePresence>
 					{showIntro ? (
-						<motion.div
-							initial={{ opacity: 0, y: 20 }}
-							animate={{ opacity: 1, y: 0 }}
-							exit={{ opacity: 0, y: -20 }}
-							transition={{ duration: 0.3 }}
-							className='max-w-3xl mx-auto'
-						>
-							<Card className='border-green-200 shadow-lg'>
-								<CardContent className='pt-6'>
-									<div className='flex justify-center mb-6'>
-										<div className='w-24 h-24 rounded-full bg-gradient-to-r from-green-600 to-green-500 flex items-center justify-center'>
-											<Scale className='h-12 w-12 text-white' />
-										</div>
-									</div>
-									<h2 className='text-2xl font-bold text-center mb-4'>
-										Welcome to Bangladesh Law AI Chatbot
-									</h2>
-									<p className='text-gray-600 mb-4 text-center'>
-										Ask any question about laws of Bangladesh and get accurate, helpful answers instantly.
-									</p>
-									<hr />
-									<p className='text-gray-500 text-xs my-4 text-center'>
-										The AI is trained based on the Bangladesh law official website content at March 2025. The
-										AI may make mistakes, so please verify important information.
-									</p>
-									<div className='grid gap-3 mt-6'>
-										<Button
-											onClick={() => {
-												setShowIntro(false);
-												trackChatSession().catch(console.error);
-											}}
-											className='bg-green-600 hover:bg-green-700 text-white'
-										>
-											Start Chatting <MoveRight className='h-5 w-5 ml-2' /> {/* Adjusted icon size/margin */}
-										</Button>
-									</div>
-								</CardContent>
-							</Card>
-						</motion.div>
+						<InitInfo setShowIntro={setShowIntro} />
 					) : (
 						<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className='max-w-3xl mx-auto'>
 							<Card className='border-emerald-200 shadow-lg rounded-xl overflow-hidden bg-white/80 backdrop-blur-sm'>
