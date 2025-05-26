@@ -4,7 +4,6 @@ import InitInfo from '@/components/init-info';
 import { MessageLoader } from '@/components/message-loader';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import '@/styles/chat.css';
 import { useChat } from '@ai-sdk/react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -23,10 +22,6 @@ export default function ChatPage() {
 	useEffect(() => {
 		messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
 	}, [messages]);
-
-	// useEffect(() => {
-	// 	if (location.hostname !== 'bd-law-ai.vercel.app') window.location.href = 'https://bd-law-ai.vercel.app';
-	// }, []);
 
 	return (
 		<div className='flex flex-col min-h-screen bg-gradient-to-br from-emerald-50 via-white to-teal-50'>
@@ -51,7 +46,7 @@ export default function ChatPage() {
 									{messages.length === 0 ? (
 										<div className='h-full flex flex-col items-center justify-center text-center p-4'>
 											<Scale className='h-20 w-20 text-emerald-200 mb-4' />
-											<h3 className='text-xl font-medium text-gray-700 mb-2'>Ask about Bangladesh Law</h3>
+											<h3 className='text-xl font-medium text-gray-700 mb-2'>Ask about Bangladesh law</h3>
 											<p className='text-gray-500 max-w-md'>
 												Ask questions about rights, amendments, articles, or any aspect of the Bangladesh law.
 											</p>
@@ -95,12 +90,18 @@ export default function ChatPage() {
 								</CardContent>
 								<CardFooter className='p-3 border-t border-emerald-100 bg-white/70 backdrop-blur-sm'>
 									<form onSubmit={handleSubmit} className='flex w-full items-center space-x-3'>
-										<Input
+										<textarea
 											value={input}
 											onChange={handleInputChange}
 											autoFocus
 											placeholder='Ask about Bangladesh Law...'
-											className='flex-grow border-emerald-300 rounded-full px-4 py-2 focus-visible:ring-0 focus-visible:ring-offset-0 transition duration-200 shadow-sm bg-white/80'
+											className='flex-grow border-2 border-emerald-200 rounded-xl px-4 py-2 transition duration-200 hover:shadow-sm bg-white/80 resize-none min-h-[40px] max-h-[60px] focus:outline-none focus:border-emerald-500'
+											rows={1}
+											onInput={(e) => {
+												e.currentTarget.rows = 1;
+												const rows = Math.min(Math.max(e.currentTarget.scrollHeight / 20, 1), 3);
+												e.currentTarget.rows = rows;
+											}}
 										/>
 										<Button
 											type='submit'

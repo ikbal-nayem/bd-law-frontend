@@ -19,7 +19,7 @@ export const MessageLoader = () => {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="message agent bg-gray-100 dark:bg-gray-800 rounded-xl rounded-bl-sm p-4"
+      className="message agent bg-gray-100 dark:bg-gray-800 rounded-xl rounded-bl-sm p-4 w-fit"
     >
       <div className="flex space-x-2">
         {[0, 1, 2].map((i) => (
