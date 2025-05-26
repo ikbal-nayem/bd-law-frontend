@@ -9,8 +9,8 @@ import React from 'react';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-	title: 'Bangladesh Constitution Assistant',
-	description: 'Get answers about the Constitution of Bangladesh',
+	title: 'Bangladesh Law AI',
+	description: 'Get answers about the law of Bangladesh',
 	generator: 'By Ikbal Nayem',
 };
 

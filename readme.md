@@ -1,8 +1,8 @@
 # Bangladesh Law Agent
 This is an AI chatbot project that provides information about the Law of Bangladesh. The project is built using Next.js, a popular React framework for building server-side rendered applications.
 
-A live version of this project is available at: https://bd-constitution-law-ai.netlify.app/
-[![Netlify Status](https://api.netlify.com/api/v1/badges/c0caf52c-780c-498c-8d06-20b2599b02cd/deploy-status)](https://app.netlify.com/projects/bd-constitution-law-ai/deploys)
+A live version of this project is available at: https://bd-law-ai.vercel.app/
+
 
 ## Features
 
