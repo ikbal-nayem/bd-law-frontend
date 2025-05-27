@@ -7,6 +7,7 @@ import { Card, CardContent } from './ui/card';
 const currentLaws = [
 	{ name: 'The Constitution of the People‌‌‍’s Republic of Bangladesh', date: 'March 2025' },
 	{ name: 'The Code of Criminal Procedure, 1898', date: 'May 2025' },
+	{ name: 'The Penal Code, 1860', date: 'May 2025' },
 ];
 
 export default function InitInfo({ setShowIntro }: { setShowIntro: (show: boolean) => void }) {

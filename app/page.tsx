@@ -12,8 +12,11 @@ import { useEffect, useRef, useState } from 'react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
+export const dynamic = 'force-dynamic';
+
 export default function ChatPage() {
 	const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
+		// api: "https://ikbal-nayem-bd-constitution-ai.hf.space/chat",
 		streamProtocol: 'text',
 	});
 	const [showIntro, setShowIntro] = useState(messages.length === 0);

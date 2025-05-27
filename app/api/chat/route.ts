@@ -10,14 +10,14 @@ export async function POST(req: Request) {
 		const supportsStreaming = process.env.FASTAPI_SUPPORTS_STREAMING === 'true';
 
 		if (supportsStreaming) {
-			// If your FastAPI endpoint supports streaming responses
-			const response = await Axios.post(FASTAPI_URL, body, {
+			const response = await fetch(FASTAPI_URL, {
+				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				responseType: 'stream',
+				body: JSON.stringify(body),
 			});
 
 			// Return the stream directly
-			return new Response(response.data, {
+			return new Response(response.body, {
 				headers: {
 					'Content-Type': 'text/event-stream',
 					'Cache-Control': 'no-cache',
@@ -36,9 +36,7 @@ export async function POST(req: Request) {
 			const stream = new ReadableStream({
 				start(controller) {
 					const encoder = new TextEncoder();
-					controller.enqueue(
-						encoder.encode(response?.data?.response || response?.data?.message)
-					);
+					controller.enqueue(encoder.encode(response?.data?.response || response?.data?.message));
 					controller.close();
 				},
 			});
