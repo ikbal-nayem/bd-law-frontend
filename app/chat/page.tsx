@@ -7,6 +7,7 @@ import { useToast } from '@/hooks/use-toast';
 import { trackChatSession } from '@/lib/user-tracking-service';
 import '@/styles/chat.css';
 import { useChat } from '@ai-sdk/react';
+import { UIMessage } from '@ai-sdk/ui-utils';
 import { motion } from 'framer-motion';
 import { Scale, Send, ThumbsDown, ThumbsUp } from 'lucide-react';
 import { useEffect, useRef } from 'react';
@@ -29,10 +30,15 @@ export default function ChatPage() {
 	}, []);
 
 	const onThumbsUp = (messageId: string) => {
-		toast({ title: 'Feedback submitted', description: 'Thank you for your feedback!', duration: 3000 });
+		toast({
+			title: 'Feedback submitted',
+			description: 'Thank you for your feedback!',
+			duration: 2000,
+			color: 'green',
+		});
 	};
 
-	const onThumbsDown = (messageId: string) => {};
+	const onThumbsDown = (message: UIMessage) => {};
 
 	return (
 		<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className='max-w-3xl mx-auto mt-2'>
@@ -75,7 +81,7 @@ export default function ChatPage() {
 											<ThumbsDown
 												size={18}
 												className='hover:text-gray-600 hover:cursor-pointer hover:scale-105'
-												onClick={() => onThumbsDown(message?.id)}
+												onClick={() => onThumbsDown(message)}
 											/>
 										</div>
 									)}

@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@/components/theme-provider';
+import { Toaster } from '@/components/ui/toaster';
 import '@/styles/globals.css';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from 'next';
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 						</div>
 					</header>
 					{children}
+					<Toaster />
 				</ThemeProvider>
 				<Script type='module' src='https://md-block.verou.me/md-block.js' strategy='lazyOnload' />
 			</body>
