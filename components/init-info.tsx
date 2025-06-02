@@ -1,8 +1,10 @@
-import { trackChatSession } from '@/lib/user-tracking-service';
+'use client';
+
 import { motion } from 'framer-motion';
 import { MoveRight, Scale } from 'lucide-react';
+import Link from 'next/link';
 import { Button } from './ui/button';
-import { Card, CardContent } from './ui/card';
+import { Card, CardContent, CardFooter } from './ui/card';
 
 const currentLaws = [
 	{ name: 'The Constitution of the People‌‌‍’s Republic of Bangladesh', date: 'March 2025' },
@@ -10,7 +12,7 @@ const currentLaws = [
 	{ name: 'The Penal Code, 1860', date: 'May 2025' },
 ];
 
-export default function InitInfo({ setShowIntro }: { setShowIntro: (show: boolean) => void }) {
+export default function InitInfo() {
 	return (
 		<motion.div
 			initial={{ opacity: 0, y: 20 }}
@@ -42,18 +44,14 @@ export default function InitInfo({ setShowIntro }: { setShowIntro: (show: boolea
 							</li>
 						))}
 					</ul>
-					<div className='grid gap-3 mt-6'>
-						<Button
-							onClick={() => {
-								setShowIntro(false);
-								trackChatSession().catch(console.error);
-							}}
-							className='bg-green-600 hover:bg-green-700 text-white'
-						>
+				</CardContent>
+				<CardFooter>
+					<Link href='/chat' className='w-full'>
+						<Button className='bg-green-600 hover:bg-green-700 text-white w-full'>
 							Start Chatting <MoveRight className='h-5 w-5 ml-2' />
 						</Button>
-					</div>
-				</CardContent>
+					</Link>
+				</CardFooter>
 			</Card>
 		</motion.div>
 	);
