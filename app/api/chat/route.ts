@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const FASTAPI_URL = process.env.FASTAPI_URL || 'http://localhost:8000/chat';
+const FASTAPI_URL = process.env.FASTAPI_URL || 'http://localhost:8000';
 
 export async function POST(req: Request) {
 	try {
@@ -8,7 +8,7 @@ export async function POST(req: Request) {
 
 		// const supportsStreaming = process.env.FASTAPI_SUPPORTS_STREAMING === 'true';
 
-		const response = await fetch(FASTAPI_URL, {
+		const response = await fetch(FASTAPI_URL+"/chat", {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(body),
