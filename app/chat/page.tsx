@@ -7,13 +7,12 @@ import { useToast } from '@/hooks/use-toast';
 import { trackChatSession } from '@/lib/user-tracking-service';
 import '@/styles/chat.css';
 import { useChat } from '@ai-sdk/react';
-import { UIMessage } from '@ai-sdk/ui-utils';
+import axios from 'axios';
 import { motion } from 'framer-motion';
 import { Scale, Send, ThumbsDown, ThumbsUp } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import axios from 'axios';
 
 export default function ChatPage() {
 	const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
@@ -30,11 +29,11 @@ export default function ChatPage() {
 		trackChatSession().catch(console.error);
 	}, []);
 
-	const onThumbsUp = (messageId: string) => {
+	const onFeedback = (messageId: string, rating: 'good' | 'bad') => {
 		axios
 			.post('/api/chat-feedback', {
 				message_id: messageId,
-				feedback: 'good',
+				rating,
 			})
 			.then((resp) => {
 				toast({
@@ -45,8 +44,6 @@ export default function ChatPage() {
 				});
 			});
 	};
-
-	const onThumbsDown = (message: UIMessage) => {};
 
 	return (
 		<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className='max-w-3xl mx-auto mt-2'>
@@ -84,12 +81,12 @@ export default function ChatPage() {
 											<ThumbsUp
 												size={18}
 												className='hover:text-gray-600 hover:cursor-pointer hover:scale-105'
-												onClick={() => onThumbsUp(messages?.[idx-1]?.id)}
+												onClick={() => onFeedback(messages?.[idx - 1]?.id, 'good')}
 											/>
 											<ThumbsDown
 												size={18}
 												className='hover:text-gray-600 hover:cursor-pointer hover:scale-105'
-												onClick={() => onThumbsDown(message)}
+												onClick={() => onFeedback(messages?.[idx - 1]?.id, 'bad')}
 											/>
 										</div>
 									)}
