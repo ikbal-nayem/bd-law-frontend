@@ -14,6 +14,9 @@ export async function POST(req: Request) {
 			body: JSON.stringify(body),
 		});
 
+		console.log(response)
+		console.log(response.body)
+
 		// Return the stream directly
 		return new Response(response.body, {
 			headers: {
