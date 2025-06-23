@@ -45,6 +45,8 @@ export default function ChatPage() {
 			});
 	};
 
+	console.log(messages)
+
 	return (
 		<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className='max-w-3xl mx-auto mt-2'>
 			<Card className='border-emerald-200 shadow-lg rounded-xl overflow-hidden bg-white/80 backdrop-blur-sm'>
