@@ -13,6 +13,7 @@ import { Scale, Send, ThumbsDown, ThumbsUp } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import axios from 'axios';
 
 export default function ChatPage() {
 	const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
@@ -30,12 +31,19 @@ export default function ChatPage() {
 	}, []);
 
 	const onThumbsUp = (messageId: string) => {
-		toast({
-			title: 'Feedback submitted',
-			description: 'Thank you for your feedback!',
-			duration: 2000,
-			color: 'green',
-		});
+		axios
+			.post('/api/chat-feedback', {
+				message_id: messageId,
+				feedback: 'good',
+			})
+			.then((resp) => {
+				toast({
+					title: 'Feedback submitted',
+					description: resp?.data?.message || 'Thank you for your feedback!',
+					duration: 2000,
+					color: 'green',
+				});
+			});
 	};
 
 	const onThumbsDown = (message: UIMessage) => {};
@@ -54,7 +62,7 @@ export default function ChatPage() {
 						</div>
 					) : (
 						<div className='space-y-4'>
-							{messages.map((message) => (
+							{messages.map((message, idx) => (
 								<motion.div
 									key={message.id}
 									initial={{ opacity: 0, y: 10 }}
@@ -76,7 +84,7 @@ export default function ChatPage() {
 											<ThumbsUp
 												size={18}
 												className='hover:text-gray-600 hover:cursor-pointer hover:scale-105'
-												onClick={() => onThumbsUp(message?.id)}
+												onClick={() => onThumbsUp(messages?.[idx-1]?.id)}
 											/>
 											<ThumbsDown
 												size={18}

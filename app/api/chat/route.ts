@@ -8,14 +8,13 @@ export async function POST(req: Request) {
 
 		// const supportsStreaming = process.env.FASTAPI_SUPPORTS_STREAMING === 'true';
 
-		const response = await fetch(FASTAPI_URL+"/chat", {
+		const response = await fetch(FASTAPI_URL + '/chat', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(body),
 		});
 
-		console.log(response)
-		console.log(response.body)
+		console.log(response);
 
 		// Return the stream directly
 		return new Response(response.body, {
