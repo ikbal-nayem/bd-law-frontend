@@ -4,8 +4,6 @@ const FASTAPI_URL = process.env.FASTAPI_URL || 'http://localhost:8000';
 
 export async function POST(req: Request) {
   try {
-    console.log(await req.json())
-    
     const body = await req.json();
 
     const response = await fetch(FASTAPI_URL + '/chat/feedback', {
