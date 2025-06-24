@@ -17,6 +17,7 @@ import remarkGfm from 'remark-gfm';
 export default function ChatPage() {
 	const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
 		streamProtocol: 'text',
+		sendExtraMessageFields: true,
 	});
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 	const { toast } = useToast();
@@ -45,7 +46,14 @@ export default function ChatPage() {
 			});
 	};
 
-	console.log(messages)
+	// const onSubmit = (event:any) => {
+	// 	handleSubmit(event, {
+	// 		allowEmptySubmit: true,
+
+	// 	});
+	// };
+
+	console.log(messages);
 
 	return (
 		<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className='max-w-3xl mx-auto mt-2'>
