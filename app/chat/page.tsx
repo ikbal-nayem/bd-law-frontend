@@ -41,19 +41,10 @@ export default function ChatPage() {
 					title: 'Feedback submitted',
 					description: resp?.data?.message || 'Thank you for your feedback!',
 					duration: 2000,
-					color: 'green',
+					variant: 'success',
 				});
 			});
 	};
-
-	// const onSubmit = (event:any) => {
-	// 	handleSubmit(event, {
-	// 		allowEmptySubmit: true,
-
-	// 	});
-	// };
-
-	console.log(messages);
 
 	return (
 		<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className='max-w-3xl mx-auto mt-2'>
