@@ -10,6 +10,8 @@ const currentLaws = [
 	{ name: 'The Constitution of the People‌‌‍’s Republic of Bangladesh', date: 'March 2025' },
 	{ name: 'The Code of Criminal Procedure, 1898', date: 'May 2025' },
 	{ name: 'The Penal Code, 1860', date: 'May 2025' },
+	{ name: 'The Registration Act, 1908', date: 'July 2025' },
+	{ name: 'The State Acquisition and Tenancy Act, 1950', date: 'July 2025' },
 ];
 
 export default function InitInfo() {
