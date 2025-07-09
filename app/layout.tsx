@@ -1,3 +1,5 @@
+import Header from '@/components/header';
+import NextNProgressBar from '@/components/progress-bar';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import '@/styles/globals.css';
@@ -20,6 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		<html lang='en'>
 			<body className={inter.className}>
 				<ThemeProvider attribute='class' defaultTheme='light'>
+					<NextNProgressBar />
 					<header className='sticky top-0 z-10 bg-white/90 backdrop-blur-md border-b border-emerald-100 shadow-sm'>
 						<Header />
 					</header>
@@ -32,7 +35,3 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		</html>
 	);
 }
-
-import './globals.css';
-import { Scale } from 'lucide-react';
-import Header from '@/components/header';

@@ -1,16 +1,15 @@
 'use client';
 
-import * as React from 'react';
 import { MessageLoader } from '@/components/message-loader';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import {
 	Dialog,
 	DialogContent,
-	DialogHeader,
-	DialogTitle,
 	DialogDescription,
 	DialogFooter,
+	DialogHeader,
+	DialogTitle,
 } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
@@ -20,6 +19,8 @@ import { useChat } from '@ai-sdk/react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { Scale, Send, ThumbsDown, ThumbsUp } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
+import * as React from 'react';
 import { useEffect, useRef } from 'react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -29,11 +30,12 @@ export default function ChatPage() {
 	const [currentMessageId, setCurrentMessageId] = React.useState<string | null>(null);
 	const [feedback, setFeedback] = React.useState('');
 	const [suggestedAnswer, setSuggestedAnswer] = React.useState('');
+	const sp = useSearchParams();
 
 	const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
 		streamProtocol: 'text',
 		sendExtraMessageFields: true,
-		body: {act: 'LAND'},
+		body: { act: sp.get('act') },
 	});
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 	const { toast } = useToast();
