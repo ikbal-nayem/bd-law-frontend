@@ -1,13 +1,14 @@
 'use client';
 
+import { actTypes } from '@/lib/types';
 import * as Select from '@radix-ui/react-select';
 import { ChevronDown, Scale } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { act, useEffect, useState } from 'react';
 
-const actTypes = [
-	{ value: 'DEFAULT', label: 'Default' },
-	{ value: 'LAND', label: 'Land Law' },
+const actOptions = [
+	{ value: actTypes.default, label: 'Default' },
+	{ value: actTypes.land, label: 'Land Law' },
 ];
 
 export default function Header() {
@@ -47,7 +48,7 @@ export default function Header() {
 							className='w-[150px] bg-white border border-emerald-200 rounded-md shadow-lg z-50'
 						>
 							<Select.Viewport className='p-1'>
-								{actTypes.map((type) => (
+								{actOptions.map((type) => (
 									<Select.Item
 										key={type.value}
 										value={type.value}

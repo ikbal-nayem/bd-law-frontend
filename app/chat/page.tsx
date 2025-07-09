@@ -1,6 +1,8 @@
 'use client';
 
+import { supportedLaw } from '@/components/init-info';
 import { MessageLoader } from '@/components/message-loader';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import {
@@ -13,6 +15,7 @@ import {
 } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { actTypes } from '@/lib/types';
 import { trackChatSession } from '@/lib/user-tracking-service';
 import '@/styles/chat.css';
 import { useChat } from '@ai-sdk/react';
@@ -85,9 +88,15 @@ export default function ChatPage() {
 							<div className='h-full flex flex-col items-center justify-center text-center p-4'>
 								<Scale className='h-20 w-20 text-emerald-200 mb-4' />
 								<h3 className='text-xl font-medium text-gray-700 mb-2'>Ask about Bangladesh law</h3>
-								<p className='text-gray-500 max-w-md'>
-									Ask questions about rights, amendments, articles, or any aspect of the Bangladesh law.
-								</p>
+								<div className='flex gap-1'>
+									{supportedLaw
+										.filter((s) => s.actType === (sp.get('act') || actTypes.default))
+										.map((law, index) => (
+											<Badge key={index} className='border-emerald-200 w-max' variant='outline'>
+												{law.name}
+											</Badge>
+										))}
+								</div>
 							</div>
 						) : (
 							<div className='space-y-4'>

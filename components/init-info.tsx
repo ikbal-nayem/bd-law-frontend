@@ -5,13 +5,15 @@ import { MoveRight, Scale } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from './ui/button';
 import { Card, CardContent, CardFooter } from './ui/card';
+import { actTypes } from '@/lib/types';
 
-const currentLaws = [
-	{ name: 'The Constitution of the People‌‌‍’s Republic of Bangladesh', date: 'March 2025' },
-	{ name: 'The Code of Criminal Procedure, 1898', date: 'May 2025' },
-	{ name: 'The Penal Code, 1860', date: 'May 2025' },
-	{ name: 'The Registration Act, 1908', date: 'July 2025' },
-	{ name: 'The State Acquisition and Tenancy Act, 1950', date: 'July 2025' },
+export const supportedLaw = [
+	{ name: 'The Constitution of the People‌‌‍’s Republic of Bangladesh', date: 'March 2025', actType: actTypes.default },
+	{ name: 'The Code of Criminal Procedure, 1898', date: 'May 2025', actType: actTypes.default },
+	{ name: 'The Penal Code, 1860', date: 'May 2025', actType: actTypes.default },
+	{ name: 'The State Acquisition and Tenancy Act, 1950', date: 'July 2025', actType: actTypes.land },
+	{ name: 'The Registration Act, 1908', date: 'July 2025', actType: actTypes.land },
+	{ name: 'The Transfer of Property Act, 1882', date: 'July 2025', actType: actTypes.land },
 ];
 
 export default function InitInfo() {
@@ -40,7 +42,7 @@ export default function InitInfo() {
 						so please verify important information.
 					</p>
 					<ul className='text-gray-500 text-sm list-disc list-inside mb-4'>
-						{currentLaws.map((law, index) => (
+						{supportedLaw.map((law, index) => (
 							<li key={index}>
 								{law.name} <sub>({law.date})</sub>
 							</li>
