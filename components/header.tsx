@@ -4,7 +4,7 @@ import { actTypes } from '@/lib/types';
 import * as Select from '@radix-ui/react-select';
 import { ChevronDown, Scale } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { act, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const actOptions = [
 	{ value: actTypes.default, label: 'Default' },

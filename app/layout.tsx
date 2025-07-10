@@ -7,7 +7,7 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
-import React from 'react';
+import React, { Suspense } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,12 +21,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang='en'>
 			<body className={inter.className}>
-				<ThemeProvider attribute='class' defaultTheme='light'>
+				<Suspense>
 					<NextNProgressBar />
+				</Suspense>
+				<ThemeProvider attribute='class' defaultTheme='light'>
 					<header className='sticky top-0 z-10 bg-white/90 backdrop-blur-md border-b border-emerald-100 shadow-sm'>
-						<Header />
+						<Suspense>
+							<Header />
+						</Suspense>
 					</header>
-					{children}
+					<Suspense>{children}</Suspense>
 					<Toaster />
 				</ThemeProvider>
 				<Script type='module' src='https://md-block.verou.me/md-block.js' strategy='lazyOnload' />
