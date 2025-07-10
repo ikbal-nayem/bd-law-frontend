@@ -22,15 +22,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		<html lang='en'>
 			<body className={inter.className}>
 				<NextNProgressBar />
-				<ThemeProvider attribute='class' defaultTheme='light'>
-					<header className='sticky top-0 z-10 bg-white/90 backdrop-blur-md border-b border-emerald-100 shadow-sm'>
-						<Suspense>
+				<Suspense>
+					<ThemeProvider attribute='class' defaultTheme='light'>
+						<header className='sticky top-0 z-10 bg-white/90 backdrop-blur-md border-b border-emerald-100 shadow-sm'>
 							<Header />
-						</Suspense>
-					</header>
-					<Suspense>{children}</Suspense>
-					<Toaster />
-				</ThemeProvider>
+						</header>
+						{children}
+						<Toaster />
+					</ThemeProvider>
+				</Suspense>
 				<Script type='module' src='https://md-block.verou.me/md-block.js' strategy='lazyOnload' />
 			</body>
 			<GoogleAnalytics gaId={process.env.GA_TRACKING_ID || ''} />
