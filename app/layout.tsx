@@ -21,9 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang='en'>
 			<body className={inter.className}>
-				<Suspense>
-					<NextNProgressBar />
-				</Suspense>
+				<NextNProgressBar />
 				<ThemeProvider attribute='class' defaultTheme='light'>
 					<header className='sticky top-0 z-10 bg-white/90 backdrop-blur-md border-b border-emerald-100 shadow-sm'>
 						<Suspense>
